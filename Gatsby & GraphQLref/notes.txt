@@ -1,0 +1,27 @@
+All my notes on the Gatsby Coffee Shop Website Video is in this file. 4hrs in length.
+-Close you eyes and imagine what's going on. This way I'll understand sooner and  further drill web dev skills with repetition into my subconsious mechenism.
+  - The dude is using state with Gatsby for programming purposes. I might as well use it too.
+  - You can add states to className. E.g. className={this.state.css} and whatever the is css="" to in state is what will be filled into that spot.
+
+Example of turning something on and off:
+  navbarHandler = () => {
+    this.state.navbarOpen
+    ? this.setState({ navbarOpen: false, css: "collapse navbar-collapse" })
+    : this.setState({
+      navbarOpen: true,
+      css: "collapse navbar-collapse show"
+    });
+  };
+
+What you can do in Sass:
+:root {
+  --mainBrown: #232322;
+  --mainYellow: #232322;
+  --mainWhite: #232322;
+}
+body {
+  background: var(--mainWhite);
+  color: var(--mainDark);
+}
+
+
