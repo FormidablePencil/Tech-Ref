@@ -1,0 +1,111 @@
+@import "anotherfile" //no export needed 
+
+$blue: #9CDCFE
+$bannerHeading: 30px
+
+@mixin banner
+  .main-nav
+    background: $blue
+    font-family: serif
+    
+    li
+      color: #f4f4f4
+      width: (40px * 2)
+
+.lead-banner
+  @include banner 
+  //mixin - are reusable bits of code. A mixin's name can be any Sass identifier, and it can contain any statement other than top-level statements.
+  
+//#main-nan a:hover    //this is the same as this 
+#main-nav 
+  a
+    color: teal
+    &:hover //& is right beside the a a:hover
+      background: indigo
+
+@mixin grid($cols,$mgn)
+  float: left
+  margin-right: $mgn
+  margin-bottom: $mgn
+  width: ((100% - (($cols - 1) * $mgn)) / $cols)
+  &:nth-child(#{cols}n) //this is going to get the last child of 
+    margin-right: 0
+
+#project li
+  @include grid(6, 4%)
+
+@mixin mQ($arg...) //(arg...) means multiple arguments.
+  @if length($arg) == 1 //if 1 argument only 
+    @media screen and (max-width: nth($arg, 1)) //@media is the only thing from css the rest of the @i is sass
+      @content //this enables me to put content in here whenever in use like in the case with 'card li' down bellow
+  @if length($arg) == 2 //if 2 argument only 
+    @media screen and (max-width: nth($arg, 1)) and (min-width: nth(arg, 2)) 
+      @content
+
+.card li 
+  @include mQ(600px)
+    width: 100% //works because we added @content in the if statement within @mixin
+//if statements in sass
+
+span
+  font-size: $bannerHeading
+  display:block
+  @include mQ(3000px, 1200px)
+    font-size: 68px //works because we added @content in the if statement within @mixin
+//So what this says is within the max-width of 3000pxx and max-min of 1200px range apply the font-size of 68px else leave it how it was; $bannerHeader
+
+//SASS SYNTAX
+@mixin corner-icon($name, $top-or-bottom, $left-or-right)
+  .icon-#{$name}
+    background-image: url("/icons/#{$name}.svg")
+    position: absolute
+    #{$top-or-bottom}: 0
+    #{$left-or-right}: 0
+
+@include corner-icon("mail", top, right)
+
+/* RESULT IN THE CSS FILE 
+  .icon-mail {
+  background-image: url("/icons/mail.svg");
+  position: absolute;
+  top: 0;
+  left: 0;
+  }  
+*/
+
+@mixin inline-animation($duration)
+  $name: inline-#{unique-id()}
+
+  @keyframes #{$name}
+    @content
+
+
+  animation-name: $name
+  animation-duration: $duration
+  animation-iteration-count: infinite
+
+
+.pulse
+  @include inline-animation(2s)
+    from
+      background-color: yellow
+    to
+      background-color: red
+
+/* RESULT IN CSS FORMAT
+  CSS OUTPUT
+  .pulse {
+    animation-name: inline-ubp4a001h;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes inline-ubp4a001h {
+    from {
+      background-color: yellow;
+    }
+    to {
+      background-color: red;
+    }
+  }
+*/
+//Interpolation "#{$name}" is useful for injecting values into string such as nav-#{$name} other than that use simply $name.

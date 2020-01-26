@@ -1,0 +1,58 @@
+This is where all my notes to the course will be:
+
+======== React concepts ========
+
+//In coding you must learn to differentiate what are just names to variables, arguments you pass variables in and actual reserved keywords for a spacific technology.
+
+------Can be written either way:------
+
+const { apple, oranges, watermelons } = this.props;
+const { apple } = this.props;   //is the same as
+const ninjas = this.props.ninjas;
+
+------Same thing------
+
+this.setState({
+  [e.target.id]: e.target.value})
+// is the same as:
+state[2] 3rd item on the list or state[e.target.id]: the target's id
+
+------Returning only that data that meets the conditions:------
+
+const Ninja = ({ninjas}) => {
+
+// Return everything with the age over 20. This is with an ternary operator. Linear code.
+  return(
+    <div className="ninja-list">
+      {
+        const ninjaList = ninjas.map(ninja => {
+          return ninja.age > 20 ? (
+            <div className="ninja" key={ninja.id}>
+              <div>Name: { ninja.name }</div> 
+              <div>Age: { ninja.age }</div> 
+              <div>Belt: { ninja.belt } </div> 
+            </div>
+          ) : null;
+        });
+      }
+    </div>
+  )
+}
+
+// Return everything with the age of 20. We used an if statement here. Easier to grasp.
+  const ninjaList = ninjas.map(ninja => {
+    if (ninja.age > 20){
+      <div className="ninja" key={ninja.id}>
+        <div>Name: { ninja.name }</div> 
+        <div>Age: { ninja.age }</div> 
+        <div>Belt: { ninja.belt } </div> 
+      </div>
+     } else {
+       return null
+       }
+  });
+}
+
+-------
+
+let ninjas = [...this.state.ninjas, ninja] Taking the existing array state array of objects and assigning is to ninjas. Also we added new data into the array that 'ninja' contains.
